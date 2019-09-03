@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { InputFilter } from '../Shared/InputFilter/InputFilter';
+import { Gallery } from '../Shared/Gallery/Gallery';
+import { BoxPicture } from '../Shared/BoxPicture/BoxPicture';
 
 export class ScreenSearchGiphy extends React.Component {
     constructor(props) {
@@ -40,6 +42,11 @@ export class ScreenSearchGiphy extends React.Component {
                     onClick={this.onClickFunc}
                     value={valueInput}
                 />
+                <BoxPicture
+                    image={"https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
+                    index={0}
+                />
+                <Gallery />
             </div>
         )
     }

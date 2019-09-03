@@ -1,0 +1,17 @@
+.container-picture {
+    border: 2px solid #e2dcfd;
+    margin: 20px;
+    padding: 10px;
+
+    .picture {
+        margin: 20px;
+        width: 250px;
+        height: 150px;
+    }
+
+    .favorite {
+        font-size: 20px;
+        cursor: pointer;
+        color: red;
+    } 
+}
