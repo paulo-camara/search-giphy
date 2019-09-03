@@ -1,0 +1,29 @@
+.input-filter {
+    margin: 30px;
+
+    .input-search {
+        padding: 3px;
+        width: 500px;
+        height: 30px;
+        margin-right: 20px;
+        border-radius: 3px;
+        border: 2px solid #e2dcfd;
+        font-size: 18px;
+    }
+    
+    .button-find {
+        height: 40px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-radius: 5px;
+        border: 1px solid white;
+        background-color: #4285f4;
+        color: white;
+        cursor: pointer;
+        font-size: 17px;
+    }
+
+    .button-find:hover, .input-search:hover {
+        box-shadow: 3px 3px 5px 3px #f3e8e8;
+    }
+}
