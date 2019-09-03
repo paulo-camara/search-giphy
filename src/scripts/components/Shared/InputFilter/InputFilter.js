@@ -5,6 +5,7 @@ export const InputFilter = ({ className, id, onChange, value, onClick }) => (
     <div className="input-filter">
         <input
             id={id}
+            placeHolder={'Pesquisar'}
             className={`input-search ${className}`}
             onChange={onChange}
             value={value} />

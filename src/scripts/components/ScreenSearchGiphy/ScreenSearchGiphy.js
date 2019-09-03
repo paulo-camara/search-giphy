@@ -12,7 +12,37 @@ export class ScreenSearchGiphy extends React.Component {
         this.state = {
             data: {
                 valueInput: '',
-            }
+            },
+            images: [
+                {
+                  src:
+                    "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                },
+                {
+                  src:
+                    "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                },
+                {
+                  src:
+                    "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                },
+                {
+                  src:
+                    "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                },
+                {
+                  src:
+                    "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                },
+                {
+                  src:
+                    "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                },
+                {
+                  src:
+                    "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                }
+              ]
         }
 
         this.onChangeValue = this.onChangeValue.bind(this);
@@ -42,11 +72,7 @@ export class ScreenSearchGiphy extends React.Component {
                     onClick={this.onClickFunc}
                     value={valueInput}
                 />
-                <BoxPicture
-                    image={"https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
-                    index={0}
-                />
-                <Gallery />
+                <Gallery images={this.state.images}/>
             </div>
         )
     }

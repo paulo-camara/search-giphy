@@ -1,24 +1,39 @@
 .gallery {
-    .container {
-        border: 4px solid #e2dcfd;
-        border-radius: 5px;
-        overflow: scroll;
-        max-height: 400px;
-    }
+  .title {
+    color: #4285f4;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    margin-bottom: 5px;
+  }
 
-    .title {
-        font-family: 'Arial Narrow', Arial, sans-serif;
-        font-size: 40px;
-        margin-left: 20px;
-        margin-bottom: 10px;
-        color: #4285f4;
+  .container {
+    overflow-x: hidden;
+    border: 4px solid #e2dcfd;
+    border-radius: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 400px;
+    padding: 20px;
+
+    .miniature {
+      img {
+        padding: 20px;
+        border: 2px solid #e2dcfd;
+        margin-bottom: 20px;
+      }
+
+      padding: 20px;
     }
-    
-    ::-webkit-scrollbar {
-        width: 6px;
-        background: #F4F4F4;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #4285f4;
-    }
+  }
+}
+
+::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+    width: 6px;
+    background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+    background: #4285f4;
 }
