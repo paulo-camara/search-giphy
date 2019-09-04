@@ -13,7 +13,7 @@ export class Gallery extends React.Component {
     return this.props.images.map((image, index) => {
       return (
         <span key={index} className="miniature">
-          <a href={image.src} onClick={e => this.openLightbox(index, e)}>
+          <a href={image.src} target="_blank" onClick={e => this.openLightbox(index, e)}>
             <img src={image.src} width="250" height="150" alt="" />
           </a>
         </span>

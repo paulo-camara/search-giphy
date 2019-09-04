@@ -13,19 +13,24 @@ export class BoxPicture extends React.Component {
     }
 
     render() {
-        const { onClick, image, index } = this.props;
+        const { onCopy, onShuffle, image, index } = this.props;
 
         return (
-            <div key={index} className="container-picture">
-                {onClick ? <span className="favorite" onClick={onClick}>❤</span> : null}
-                <Carousel views={[{ source: image }]} />
+            <div className="box-picture">
+                <div key={index} className="container-picture">
+                    <img src={image.src} />
+                </div>
+                <button className="copy" onClick={onCopy}>Copy</button>
+                <button className="shuffle" onClick={onShuffle}>Shuffle</button>
             </div>
+
         )
     }
 }
 
 Image.propTypes = {
     image: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
+    onShuffle: PropTypes.func.isRequired,
+    onCopy: PropTypes.func.isRequired,
     onClick: PropTypes.func
 };
