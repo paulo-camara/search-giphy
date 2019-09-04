@@ -1,9 +1,8 @@
 .box-picture {
     .container-picture {
-        border-radius: 5px;
         border: 3px solid #e2dcfd;
-        margin: 20px;
-        padding: 20px;
+        margin-bottom: 20px;
+        padding: 7px;
     
     }
     .copy, .shuffle {
@@ -19,5 +18,9 @@
     .copy, .shuffle {
         margin-right: 16px;
         float: right;
+    }
+
+    .copy:hover, .shuffle:hover {
+        box-shadow: 3px 3px 5px 3px #f3e8e8;
     }
 }
