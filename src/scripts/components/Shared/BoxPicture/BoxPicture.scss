@@ -1,0 +1,26 @@
+.box-picture {
+    .container-picture {
+        border: 3px solid #e2dcfd;
+        margin-bottom: 20px;
+        padding: 7px;
+    
+    }
+    .copy, .shuffle {
+        padding: 10px;
+        height: 40px;
+        vertical-align: bottom;
+        border-radius: 5px;
+        background-color: #4285f4;
+        color: #FFFFFF;
+        border: 2px solid;
+        font-size: 17px;
+    }
+    .copy, .shuffle {
+        margin-right: 16px;
+        float: right;
+    }
+
+    .copy:hover, .shuffle:hover {
+        box-shadow: 3px 3px 5px 3px #f3e8e8;
+    }
+}
