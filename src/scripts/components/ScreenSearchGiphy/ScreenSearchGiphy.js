@@ -3,7 +3,7 @@ import { InputFilter } from "../Shared/InputFilter/InputFilter";
 import { Gallery } from "../Shared/Gallery/Gallery";
 import { BoxPicture } from "../Shared/BoxPicture/BoxPicture";
 import { Request } from "../../Request";
-import ApiRoutes from '../../ApiRoutes';
+import ApiRoutes from "../../ApiRoutes";
 
 export class ScreenSearchGiphy extends React.Component {
   constructor(props) {
@@ -12,31 +12,31 @@ export class ScreenSearchGiphy extends React.Component {
 
     this.onChangeValue = this.onChangeValue.bind(this);
     this.onClickFunc = this.onClickFunc.bind(this);
-    
+
     this.onClickFuncSuccess = this.onClickFuncSuccess.bind(this);
     this.onClickFuncFail = this.onClickFuncFail.bind(this);
-    
+
     this.state = {
-          data: {
-            valueInput: ""
-          },
-          images: [
-            {
-              src: "https://media.giphy.com/media/d5fdHJvgjQztHqCLhC/giphy.gif"
-            },
-            {
-              src: "https://media.giphy.com/media/iieZBiRO5F9V6/giphy.gif"
-            },
-            {
-              src: "https://media.giphy.com/media/iCTs8CcnOl6KI/giphy.gif"
-            },
-            {
-              src: "https://media.giphy.com/media/bzL59QAV2Pny/giphy.gif"
-            },
-            {
-              src: "https://media.giphy.com/media/3fN8BMRnvIdR6/giphy.gif"
-            }
-          ]
+      data: {
+        valueInput: ""
+      },
+      images: [
+        {
+          src: "https://media.giphy.com/media/d5fdHJvgjQztHqCLhC/giphy.gif"
+        },
+        {
+          src: "https://media.giphy.com/media/iieZBiRO5F9V6/giphy.gif"
+        },
+        {
+          src: "https://media.giphy.com/media/iCTs8CcnOl6KI/giphy.gif"
+        },
+        {
+          src: "https://media.giphy.com/media/bzL59QAV2Pny/giphy.gif"
+        },
+        {
+          src: "https://media.giphy.com/media/3fN8BMRnvIdR6/giphy.gif"
+        }
+      ]
     };
   }
 
@@ -49,7 +49,9 @@ export class ScreenSearchGiphy extends React.Component {
   }
 
   onClickFunc() {
-    const payload = 'cat';
+    const payload = {
+      q: "cat"
+    };
 
     this.request.SendRequestGet(
       ApiRoutes.search,
@@ -59,12 +61,12 @@ export class ScreenSearchGiphy extends React.Component {
     );
   }
 
-  onClickFuncSuccess(data) { 
-    console.log('Data: ', data);
+  onClickFuncSuccess(data) {
+    console.log("Data: ", data);
   }
 
-  onClickFuncFail(err) { 
-    console.log('Err: ', err);
+  onClickFuncFail(err) {
+    console.log("Err: ", err);
   }
 
   render() {
@@ -86,9 +88,7 @@ export class ScreenSearchGiphy extends React.Component {
           />
         </div>
         <div className="row">
-          <Gallery
-            images={this.state.images}
-          />
+          <Gallery images={this.state.images} />
         </div>
       </div>
     );
