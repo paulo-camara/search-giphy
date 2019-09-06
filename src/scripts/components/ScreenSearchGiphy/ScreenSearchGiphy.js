@@ -20,6 +20,8 @@ export class ScreenSearchGiphy extends React.Component {
     this._shuffle = this._shuffle.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
 
+    this._copyUrl = this._copyUrl.bind(this);
+
     this.state = {
       controls: {
         numberShuffle: 0
@@ -36,6 +38,11 @@ export class ScreenSearchGiphy extends React.Component {
     console.log(event.keyCode);
 
     if (event.keyCode === 13) this.onClickFunc()
+  }
+
+  _copyUrl() {
+    document.getElementById("input-shared").select()
+    document.execCommand('copy');
   }
 
   onChangeValue(event) {
@@ -73,7 +80,10 @@ export class ScreenSearchGiphy extends React.Component {
 
   onClickFuncSuccess(values) {
     this.setState({
-      giphys: this._formatterArray(values.data)
+      giphys: this._formatterArray(values.data),
+      controls: {
+        numberShuffle: 0
+      }
     })
   }
 
@@ -110,7 +120,7 @@ export class ScreenSearchGiphy extends React.Component {
           <BoxPicture
             image={url}
             onShuffle={this._shuffle}
-            onCopy={() => console.log("Copy")}
+            onCopy={this._copyUrl}
             onFavorite={() => console.log('Favoritou')}
           />
         </div>
