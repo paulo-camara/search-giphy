@@ -11,15 +11,16 @@ export class BoxPicture extends React.Component {
     }
 
     render() {
-        const { onCopy, onShuffle, image, index } = this.props;
+        const { onCopy, onShuffle, onFavorite, image, index } = this.props;
 
         return (
             <div className="box-picture">
                 <div key={index} className="container-picture">
-                    <img src={image.src} alt="gif"/>
+                    {image && <img src={image} alt="gif" />}
                 </div>
-                <button className="copy" onClick={onCopy}>Copy</button>
-                <button className="shuffle" onClick={onShuffle}>Shuffle</button>
+                <button className="btn copy" onClick={onCopy}>Copy</button>
+                <button className="btn shuffle" onClick={onShuffle}>Shuffle</button>
+                <button className="btn favorite" onClick={onFavorite}>Favoritar</button>
             </div>
 
         )
@@ -30,5 +31,6 @@ Image.propTypes = {
     image: PropTypes.string.isRequired,
     onShuffle: PropTypes.func.isRequired,
     onCopy: PropTypes.func.isRequired,
+    onFavorite: PropTypes.func.isRequired,
     onClick: PropTypes.func
 };

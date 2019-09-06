@@ -1,9 +1,10 @@
 import React from "react";
 import { InputFilter } from "../Shared/InputFilter/InputFilter";
-import { Gallery } from "../Shared/Gallery/Gallery";
+// import { Gallery } from "../Shared/Gallery/Gallery";
 import { BoxPicture } from "../Shared/BoxPicture/BoxPicture";
-import { Request } from "../../Request";
+
 import ApiRoutes from "../../ApiRoutes";
+import { Request } from "../../Request";
 
 export class ScreenSearchGiphy extends React.Component {
   constructor(props) {
@@ -16,28 +17,25 @@ export class ScreenSearchGiphy extends React.Component {
     this.onClickFuncSuccess = this.onClickFuncSuccess.bind(this);
     this.onClickFuncFail = this.onClickFuncFail.bind(this);
 
+    this._shuffle = this._shuffle.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
+
     this.state = {
+      controls: {
+        numberShuffle: 0
+      },
       data: {
+        favorites: [],
         valueInput: ""
       },
-      images: [
-        {
-          src: "https://media.giphy.com/media/d5fdHJvgjQztHqCLhC/giphy.gif"
-        },
-        {
-          src: "https://media.giphy.com/media/iieZBiRO5F9V6/giphy.gif"
-        },
-        {
-          src: "https://media.giphy.com/media/iCTs8CcnOl6KI/giphy.gif"
-        },
-        {
-          src: "https://media.giphy.com/media/bzL59QAV2Pny/giphy.gif"
-        },
-        {
-          src: "https://media.giphy.com/media/3fN8BMRnvIdR6/giphy.gif"
-        }
-      ]
+      giphys: []
     };
+  }
+
+  onKeyPress(event) {
+    console.log(event.keyCode);
+
+    if (event.keyCode === 13) this.onClickFunc()
   }
 
   onChangeValue(event) {
@@ -48,9 +46,21 @@ export class ScreenSearchGiphy extends React.Component {
     });
   }
 
+  _shuffle() {
+    const { numberShuffle } = this.state.controls;
+
+    this.setState({
+      controls: {
+        numberShuffle: numberShuffle + 1
+      }
+    })
+  }
+
   onClickFunc() {
+    if (!this.state.data.valueInput) return;
+
     const payload = {
-      q: "cat"
+      q: this.state.data.valueInput
     };
 
     this.request.SendRequestGet(
@@ -61,8 +71,20 @@ export class ScreenSearchGiphy extends React.Component {
     );
   }
 
-  onClickFuncSuccess(data) {
-    console.log("Data: ", data);
+  onClickFuncSuccess(values) {
+    this.setState({
+      giphys: this._formatterArray(values.data)
+    })
+  }
+
+  _formatterArray(data) {
+    return data.map((current) => {
+      return {
+        url: current.images.original.url,
+        id: current.id,
+        title: current.title
+      }
+    })
   }
 
   onClickFuncFail(err) {
@@ -71,6 +93,9 @@ export class ScreenSearchGiphy extends React.Component {
 
   render() {
     const { valueInput } = this.state.data;
+    const { controls, giphys } = this.state;
+
+    const url = giphys[controls.numberShuffle] ? giphys[controls.numberShuffle].url : ''
 
     return (
       <div className="screen-search-giphy">
@@ -78,18 +103,20 @@ export class ScreenSearchGiphy extends React.Component {
           <InputFilter
             className={"screen=search-giphy"}
             onChange={this.onChangeValue}
+            onKeyPress={this.onKeyPress}
             onClick={this.onClickFunc}
             value={valueInput}
           />
           <BoxPicture
-            image={this.state.images[0]}
-            onShuffle={() => console.log("Shuffle")}
+            image={url}
+            onShuffle={this._shuffle}
             onCopy={() => console.log("Copy")}
+            onFavorite={() => console.log('Favoritou')}
           />
         </div>
-        <div className="row">
-          <Gallery images={this.state.images} />
-        </div>
+        {/* <div className="row">
+          <Gallery images={this.state.giphys} />
+        </div> */}
       </div>
     );
   }

@@ -3,9 +3,16 @@
         border: 3px solid #e2dcfd;
         margin-bottom: 20px;
         padding: 7px;
-    
+        min-width: 280px;
+        min-height: 200px;    
     }
-    .copy, .shuffle {
+
+    img {
+        max-width: 380px;
+        max-height: 300px;    
+    }
+
+    .btn {
         padding: 10px;
         height: 40px;
         vertical-align: bottom;
@@ -15,12 +22,12 @@
         border: 2px solid;
         font-size: 17px;
     }
-    .copy, .shuffle {
+    .copy, .favorite, .shuffle {
         margin-right: 16px;
         float: right;
     }
 
-    .copy:hover, .shuffle:hover {
+    .btn:hover {
         box-shadow: 3px 3px 5px 3px #f3e8e8;
     }
 }
