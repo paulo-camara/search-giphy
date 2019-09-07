@@ -10,7 +10,8 @@ import toastr from 'toastr';
 const _getInitialState = () => {
     return {
         controls: {
-            numberShuffle: 0
+            numberShuffle: 0,
+            isLoading: false
         },
         data: {
             favorites: [],
@@ -47,11 +48,13 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     onShuffle() {
         const { numberShuffle } = this.state.controls;
 
-        this.setState({
-            controls: {
-                numberShuffle: numberShuffle + 1
-            }
-        })
+        this.setState(
+            update(this.state, {
+                controls: {
+                    numberShuffle: { $set: numberShuffle + 1 }
+                }
+            })
+        )
     }
 
     onUpdateFavorites() {
@@ -110,6 +113,8 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     onGetGifs() {
         if (!this.state.data.valueInput) return;
 
+        this._setIsLoading(true);
+
         const payload = {
             q: this.state.data.valueInput
         };
@@ -123,6 +128,8 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     }
 
     _onGetGifsSuccess(values) {
+        this._setIsLoading(false);
+
         this.numberShuffle = 0;
 
         this.setState({
@@ -131,7 +138,18 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     }
 
     _onGetGifsFail(err) {
+        this._setIsLoading(false);
         alert(err);
+    }
+
+    _setIsLoading(status) {
+        this.setState(
+            update(this.state, {
+                controls: {
+                    isLoading: { $set: status }
+                }
+            })
+        )
     }
 
     onResetState() {

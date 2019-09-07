@@ -61,6 +61,8 @@ export class ScreenSearchGiphy extends Reflux.Component {
 
     const url = giphys[controls.numberShuffle] ? giphys[controls.numberShuffle].url : ''
 
+    console.log(controls.isLoading);
+
     return (
       <div className="screen-search-giphy">
         <div className="header">
@@ -73,6 +75,7 @@ export class ScreenSearchGiphy extends Reflux.Component {
           />
           <BoxPicture
             image={url}
+            isLoading={controls.isLoading}
             onShuffle={this._shuffle}
             onCopy={this._copyUrl}
             onFavorite={this._favoriteGiphy}

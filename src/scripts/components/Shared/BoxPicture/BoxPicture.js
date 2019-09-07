@@ -4,14 +4,18 @@ import PropTypes from "prop-types";
 export class BoxPicture extends React.Component {
   constructor(props) {
     super(props);
+  }
 
-    this.state = {
-      isOpen: false
-    };
+  _renderImage(image, isLoading) {
+    if (isLoading == true) {
+      return <h1 className="loading-message"> Carregando... </h1>
+    } else if (isLoading == false && image) {
+      return <img src={image} alt="gif" />
+    }
   }
 
   render() {
-    const { onCopy, onShuffle, onFavorite, image, index } = this.props;
+    const { onCopy, onShuffle, onFavorite, image, index, isLoading } = this.props;
 
     return (
       <div className="box-picture">
@@ -22,7 +26,7 @@ export class BoxPicture extends React.Component {
           value={image}
         ></input>
         <div key={index} className="container-picture">
-          {image && <img src={image} alt="gif" />}
+          {this._renderImage(image, isLoading)}
         </div>
         <div>
           <button className="btn copy" onClick={onCopy}>
