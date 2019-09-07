@@ -1,12 +1,11 @@
 .input-filter {
-    margin: 30px;
-
     .input-search {
+        margin-bottom: 10px;
         padding: 3px;
         width: 500px;
         height: 30px;
         margin-right: 20px;
-        border-radius: 3px;
+        border-radius: 6px;
         border: 2px solid #e2dcfd;
         font-size: 18px;
     }
@@ -16,7 +15,7 @@
         padding-left: 15px;
         padding-right: 15px;
         border-radius: 5px;
-        border: 1px solid white;
+        border: 1px solid #4285f4;
         background-color: #4285f4;
         color: white;
         cursor: pointer;
@@ -24,6 +23,6 @@
     }
 
     .button-find:hover, .input-search:hover {
-        box-shadow: 3px 3px 5px 3px #f3e8e8;
+        box-shadow: 3px 3px 5px 3px #555151;
     }
 }
