@@ -57,7 +57,7 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     onUpdateFavorites() {
         const favorites = localStorage.getItem('favorites');
 
-        if(!favorites) return
+        if (!favorites) return
 
         this.setState(update(this.state, {
             data: {
@@ -69,10 +69,12 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     onSaveFavorites() {
         const { giphys, controls } = this.state;
         const gif = giphys[controls.numberShuffle] ? giphys[controls.numberShuffle].url : '';
-
         const isValid = this._favoriteIsValid(gif);
 
-        if (!isValid) return;
+        if (!isValid) {
+            toastr.error('Erro ao favoritar');
+            return;
+        }
 
         this.setState(
             update(this.state, {
@@ -82,17 +84,13 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
             })
         )
 
-        localStorage.setItem(
-            'favorites',
-            JSON.stringify(this.state.data.favorites)
-        );
+        localStorage.setItem('favorites', JSON.stringify(this.state.data.favorites));
     }
 
     _favoriteIsValid(gif) {
         const { favorites } = this.state.data;
 
-        if (favorites.includes(gif)) {
-            toastr.warning('Já existe esse GIF em seus favoritos');
+        if (favorites.includes(gif) || !gif) {
             return false;
         }
 
