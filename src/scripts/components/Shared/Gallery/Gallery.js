@@ -1,15 +1,11 @@
 import React from "react";
 
-const openLightbox = (index, event) => {
-  console.log('Abriu a foto');
-}
-
 const _renderMiniature = (images) => {
   return images.map((image, index) => {
     return (
       <span key={index} className="miniature">
-        <a href={image.src} target="blank" onClick={e => openLightbox(index, e)}>
-          <img src={image.src} width="250" height="150" alt="gif" />
+        <a href={image} target="blank">
+          <img src={image} width="250" height="150" alt="gif" />
         </a>
       </span>
     );

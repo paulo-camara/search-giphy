@@ -16,6 +16,7 @@ export class BoxPicture extends React.Component {
     return (
       <div className="box-picture">
         <input
+          placeholder={"Url"}
           className="input-shared-giphy"
           id={"input-shared"}
           value={image}

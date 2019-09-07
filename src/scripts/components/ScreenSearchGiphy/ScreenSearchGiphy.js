@@ -1,43 +1,53 @@
 import React from "react";
+import Reflux from 'reflux';
+
+import { ScreenSearchGiphyActions } from './ScreenSearchGiphyActions';
+import { ScreenSearchGiphyStore } from './ScreenSearchGiphyStore';
+
 import { InputFilter } from "../Shared/InputFilter/InputFilter";
-// import { Gallery } from "../Shared/Gallery/Gallery";
+import { Gallery } from "../Shared/Gallery/Gallery";
 import { BoxPicture } from "../Shared/BoxPicture/BoxPicture";
 
-import ApiRoutes from "../../ApiRoutes";
-import { Request } from "../../Request";
 
-export class ScreenSearchGiphy extends React.Component {
+export class ScreenSearchGiphy extends Reflux.Component {
   constructor(props) {
     super(props);
-    this.request = new Request();
 
-    this.onChangeValue = this.onChangeValue.bind(this);
-    this.onClickFunc = this.onClickFunc.bind(this);
+    this.store = ScreenSearchGiphyStore;
 
-    this.onClickFuncSuccess = this.onClickFuncSuccess.bind(this);
-    this.onClickFuncFail = this.onClickFuncFail.bind(this);
-
+    this._changeValueInput = this._changeValueInput.bind(this);
+    this._keyPress = this._keyPress.bind(this);
     this._shuffle = this._shuffle.bind(this);
-    this.onKeyPress = this.onKeyPress.bind(this);
-
-    this._copyUrl = this._copyUrl.bind(this);
-
-    this.state = {
-      controls: {
-        numberShuffle: 0
-      },
-      data: {
-        favorites: [],
-        valueInput: ""
-      },
-      giphys: []
-    };
+    this._favoriteGiphy = this._favoriteGiphy.bind(this);
   }
 
-  onKeyPress(event) {
-    console.log(event.keyCode);
+  componentDidMount() {
+    ScreenSearchGiphyActions.UpdateFavorites();
+  }
 
-    if (event.keyCode === 13) this.onClickFunc()
+  componentWillUnmount() {
+    ScreenSearchGiphyActions.ResetState();
+    super.componentWillUnmount();
+  }
+
+  _changeValueInput(event) {
+    ScreenSearchGiphyActions.ChangeValueInput(event);
+  }
+
+  _getGifs() {
+    ScreenSearchGiphyActions.GetGifs();
+  }
+
+  _shuffle() {
+    ScreenSearchGiphyActions.Shuffle();
+  }
+
+  _favoriteGiphy() {
+    ScreenSearchGiphyActions.SaveFavorites();
+  }
+
+  _keyPress(event) {
+    if (event.keyCode === 13) this._getGifs();
   }
 
   _copyUrl() {
@@ -45,64 +55,8 @@ export class ScreenSearchGiphy extends React.Component {
     document.execCommand('copy');
   }
 
-  onChangeValue(event) {
-    this.setState({
-      data: {
-        valueInput: event.target.value
-      }
-    });
-  }
-
-  _shuffle() {
-    const { numberShuffle } = this.state.controls;
-
-    this.setState({
-      controls: {
-        numberShuffle: numberShuffle + 1
-      }
-    })
-  }
-
-  onClickFunc() {
-    if (!this.state.data.valueInput) return;
-
-    const payload = {
-      q: this.state.data.valueInput
-    };
-
-    this.request.SendRequestGet(
-      ApiRoutes.search,
-      payload,
-      this.onClickFuncSuccess,
-      this.onClickFuncFail
-    );
-  }
-
-  onClickFuncSuccess(values) {
-    this.setState({
-      giphys: this._formatterArray(values.data),
-      controls: {
-        numberShuffle: 0
-      }
-    })
-  }
-
-  _formatterArray(data) {
-    return data.map((current) => {
-      return {
-        url: current.images.original.url,
-        id: current.id,
-        title: current.title
-      }
-    })
-  }
-
-  onClickFuncFail(err) {
-    console.log("Err: ", err);
-  }
-
   render() {
-    const { valueInput } = this.state.data;
+    const { data } = this.state;
     const { controls, giphys } = this.state;
 
     const url = giphys[controls.numberShuffle] ? giphys[controls.numberShuffle].url : ''
@@ -112,21 +66,21 @@ export class ScreenSearchGiphy extends React.Component {
         <div className="header">
           <InputFilter
             className={"screen=search-giphy"}
-            onChange={this.onChangeValue}
-            onKeyPress={this.onKeyPress}
-            onClick={this.onClickFunc}
-            value={valueInput}
+            onChange={this._changeValueInput}
+            onKeyPress={this._keyPress}
+            onClick={this._getGifs}
+            value={data.valueInput}
           />
           <BoxPicture
             image={url}
             onShuffle={this._shuffle}
             onCopy={this._copyUrl}
-            onFavorite={() => console.log('Favoritou')}
+            onFavorite={this._favoriteGiphy}
           />
         </div>
-        {/* <div className="row">
-          <Gallery images={this.state.giphys} />
-        </div> */}
+        <div className="row">
+          <Gallery images={data.favorites} />
+        </div>
       </div>
     );
   }
