@@ -5,6 +5,8 @@ import { ScreenSearchGiphyActions } from './ScreenSearchGiphyActions';
 import ApiRoutes from "../../ApiRoutes";
 import { Request } from "../../Request";
 
+import toastr from 'toastr';
+
 const _getInitialState = () => {
     return {
         controls: {
@@ -53,11 +55,48 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     }
 
     onUpdateFavorites() {
-       console.log('Atualizou os favoritos');
+        const favorites = localStorage.getItem('favorites');
+
+        if(!favorites) return
+
+        this.setState(update(this.state, {
+            data: {
+                favorites: { $set: JSON.parse(favorites) }
+            }
+        }))
     }
 
     onSaveFavorites() {
-        console.log('salvou nos favoritos');
+        const { giphys, controls } = this.state;
+        const gif = giphys[controls.numberShuffle] ? giphys[controls.numberShuffle].url : '';
+
+        const isValid = this._favoriteIsValid(gif);
+
+        if (!isValid) return;
+
+        this.setState(
+            update(this.state, {
+                data: {
+                    favorites: { $push: [gif] }
+                }
+            })
+        )
+
+        localStorage.setItem(
+            'favorites',
+            JSON.stringify(this.state.data.favorites)
+        );
+    }
+
+    _favoriteIsValid(gif) {
+        const { favorites } = this.state.data;
+
+        if (favorites.includes(gif)) {
+            toastr.warning('Já existe esse GIF em seus favoritos');
+            return false;
+        }
+
+        return true;
     }
 
     _formatterArray(data) {
