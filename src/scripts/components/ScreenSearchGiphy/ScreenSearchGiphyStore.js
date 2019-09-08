@@ -5,10 +5,13 @@ import { ScreenSearchGiphyActions } from './ScreenSearchGiphyActions';
 import ApiRoutes from "../../ApiRoutes";
 import { Request } from "../../Request";
 
+import toastr from 'toastr';
+
 const _getInitialState = () => {
     return {
         controls: {
-            numberShuffle: 0
+            numberShuffle: 0,
+            isLoading: false
         },
         data: {
             favorites: [],
@@ -45,19 +48,72 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     onShuffle() {
         const { numberShuffle } = this.state.controls;
 
-        this.setState({
-            controls: {
-                numberShuffle: numberShuffle + 1
-            }
-        })
+        this.setState(
+            update(this.state, {
+                controls: {
+                    numberShuffle: { $set: numberShuffle + 1 }
+                }
+            })
+        )
     }
 
     onUpdateFavorites() {
-       console.log('Atualizou os favoritos');
+        const favorites = localStorage.getItem('favorites');
+
+        if (!favorites) return
+
+        this.setState(update(this.state, {
+            data: {
+                favorites: { $set: JSON.parse(favorites) }
+            }
+        }))
     }
 
     onSaveFavorites() {
-        console.log('salvou nos favoritos');
+        const { giphys, controls } = this.state;
+        const gif = giphys[controls.numberShuffle] ? giphys[controls.numberShuffle].url : '';
+        const isValid = this._favoriteIsValid(gif);
+
+        if (!isValid) {
+            toastr.error('Erro ao favoritar');
+            return;
+        }
+
+        this.setState(
+            update(this.state, {
+                data: {
+                    favorites: { $push: [gif] }
+                }
+            })
+        )
+
+        localStorage.setItem('favorites', JSON.stringify(this.state.data.favorites));
+    }
+
+    _favoriteIsValid(gif) {
+        const { favorites } = this.state.data;
+
+        if (favorites.includes(gif) || !gif) {
+            return false;
+        }
+
+        return true;
+    }
+
+    onRemoveGif(gif) {
+        const { favorites } = this.state.data;
+
+        const fav = favorites.filter((favorite) => favorite !== gif);
+
+        this.setState(
+            update(this.state, {
+                data: {
+                    favorites: { $set: fav }
+                }
+            })
+        )
+
+        localStorage.setItem('favorites', JSON.stringify(this.state.data.favorites));
     }
 
     _formatterArray(data) {
@@ -73,6 +129,8 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     onGetGifs() {
         if (!this.state.data.valueInput) return;
 
+        this._setIsLoading(true);
+
         const payload = {
             q: this.state.data.valueInput
         };
@@ -86,6 +144,8 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     }
 
     _onGetGifsSuccess(values) {
+        this._setIsLoading(false);
+
         this.numberShuffle = 0;
 
         this.setState({
@@ -94,7 +154,18 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
     }
 
     _onGetGifsFail(err) {
+        this._setIsLoading(false);
         alert(err);
+    }
+
+    _setIsLoading(status) {
+        this.setState(
+            update(this.state, {
+                controls: {
+                    isLoading: { $set: status }
+                }
+            })
+        )
     }
 
     onResetState() {

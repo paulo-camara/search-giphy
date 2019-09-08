@@ -19,6 +19,7 @@ export class ScreenSearchGiphy extends Reflux.Component {
     this._keyPress = this._keyPress.bind(this);
     this._shuffle = this._shuffle.bind(this);
     this._favoriteGiphy = this._favoriteGiphy.bind(this);
+    this._removeGif = this._removeGif.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +56,10 @@ export class ScreenSearchGiphy extends Reflux.Component {
     document.execCommand('copy');
   }
 
+  _removeGif(gif) {
+    ScreenSearchGiphyActions.RemoveGif(gif);
+  }
+
   render() {
     const { data } = this.state;
     const { controls, giphys } = this.state;
@@ -73,13 +78,16 @@ export class ScreenSearchGiphy extends Reflux.Component {
           />
           <BoxPicture
             image={url}
+            isLoading={controls.isLoading}
             onShuffle={this._shuffle}
             onCopy={this._copyUrl}
             onFavorite={this._favoriteGiphy}
           />
         </div>
         <div className="row">
-          <Gallery images={data.favorites} />
+          <Gallery
+            images={data.favorites}
+            onRemove={this._removeGif} />
         </div>
       </div>
     );
