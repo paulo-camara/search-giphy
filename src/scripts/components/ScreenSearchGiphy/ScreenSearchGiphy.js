@@ -70,6 +70,7 @@ export class ScreenSearchGiphy extends Reflux.Component {
       <div className="screen-search-giphy">
         <div className="header">
           <InputFilter
+            isValid={controls.isLoading}
             className={"screen=search-giphy"}
             onChange={this._changeValueInput}
             onKeyPress={this._keyPress}

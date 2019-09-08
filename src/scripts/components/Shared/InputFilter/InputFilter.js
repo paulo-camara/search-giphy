@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const InputFilter = ({ className, id, onChange, onKeyPress, value, onClick }) => (
+export const InputFilter = ({ className, id, onChange, onKeyPress, value, isValid, onClick }) => (
     <div className="input-filter">
         <input
+            disabled={isValid}
             id={id}
             placeholder={'Pesquisar'}
             className={`input-search ${className}`}
