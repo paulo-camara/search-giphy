@@ -100,6 +100,22 @@ export class ScreenSearchGiphyStore extends Reflux.Store {
         return true;
     }
 
+    onRemoveGif(gif) {
+        const { favorites } = this.state.data;
+
+        const fav = favorites.filter((favorite) => favorite !== gif);
+
+        this.setState(
+            update(this.state, {
+                data: {
+                    favorites: { $set: fav }
+                }
+            })
+        )
+
+        localStorage.setItem('favorites', JSON.stringify(this.state.data.favorites));
+    }
+
     _formatterArray(data) {
         return data.map((current) => {
             return {

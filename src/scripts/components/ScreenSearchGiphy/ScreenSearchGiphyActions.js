@@ -6,5 +6,6 @@ export const ScreenSearchGiphyActions = Reflux.createActions([
     'Shuffle',
     'SaveFavorites',
     'UpdateFavorites',
+    'RemoveGif',
     'ResetState'
 ]);

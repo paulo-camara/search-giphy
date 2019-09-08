@@ -6,7 +6,18 @@
     margin-bottom: 5px;
   }
 
+  label {
+    color: #ffffff;
+    font-size: 12px;
+    display: block;
+    margin-left: 252px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
   .container {
+    display: flex;
+    flex-wrap: wrap;
     min-height: 200px;
     max-height: 290px;
     overflow-x: hidden;

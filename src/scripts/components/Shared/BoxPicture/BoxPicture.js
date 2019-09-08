@@ -7,9 +7,9 @@ export class BoxPicture extends React.Component {
   }
 
   _renderImage(image, isLoading) {
-    if (isLoading == true) {
+    if (isLoading === true) {
       return <h1 className="loading-message"> Carregando... </h1>
-    } else if (isLoading == false && image) {
+    } else if (isLoading === false && image) {
       return <img src={image} alt="gif" />
     }
   }
