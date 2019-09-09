@@ -1,29 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export const InputFilter = ({ className, id, onChange, onKeyPress, value, isValid, onClick }) => (
-    <div className="input-filter">
-        <input
-            disabled={isValid}
-            id={id}
-            placeholder={'Pesquisar'}
-            className={`input-search ${className}`}
-            onChange={onChange}
-            onKeyDown={onKeyPress}
-            value={value} />
-        <button
-            className="button-find"
-            onClick={onClick}>
-            Pesquisar
-        </button>
-    </div>
+export const InputFilter = ({
+  className,
+  id,
+  onChange,
+  onKeyPress,
+  value,
+  isValid,
+  onClick
+}) => (
+  <div className="input-filter">
+    <input
+      disabled={isValid}
+      id={id}
+      placeholder={"Pesquisar"}
+      className={`input-search ${className}`}
+      onChange={onChange}
+      onKeyDown={onKeyPress}
+      value={value}
+    />
+    <button className="button-find" onClick={onClick}>
+      Pesquisar
+    </button>
+  </div>
 );
 
 InputFilter.propTypes = {
-    className: PropTypes.string,
-    id: PropTypes.string,
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired,
-    onKeyPress: PropTypes.func.isRequired
+  className: PropTypes.string,
+  id: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func.isRequired
 };

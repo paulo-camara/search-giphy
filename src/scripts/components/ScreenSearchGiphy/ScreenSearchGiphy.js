@@ -12,7 +12,7 @@ export class ScreenSearchGiphy extends Reflux.Component {
 
     this.store = ScreenSearchGiphyStore;
 
-    // Binds feitos no constructor para que não fossem 
+    // Binds feitos no constructor para que não fossem
     //  feitos no render e excutados a cada setState novamente
     this._changeValueInput = this._changeValueInput.bind(this);
     this._keyPress = this._keyPress.bind(this);
@@ -21,13 +21,13 @@ export class ScreenSearchGiphy extends Reflux.Component {
     this._removeGif = this._removeGif.bind(this);
   }
 
-  // Função responsavel por executar os metodos 
+  // Função responsavel por executar os metodos
   //  necessarios quando monta o componente
   componentDidMount() {
     ScreenSearchGiphyActions.UpdateFavorites();
   }
 
-  // Função responsavel por executar os metodos 
+  // Função responsavel por executar os metodos
   //  necessariosde quando vai desmontar o componente
   componentWillUnmount() {
     ScreenSearchGiphyActions.ResetState();
@@ -54,7 +54,7 @@ export class ScreenSearchGiphy extends Reflux.Component {
     ScreenSearchGiphyActions.SaveFavorites();
   }
 
-  // Método responsavel por validar a chamada do método que chama 
+  // Método responsavel por validar a chamada do método que chama
   //  a request somente quando a tecla prescionada no input for o ENTER (keyCode 13)
   _keyPress(event) {
     if (event.keyCode === 13) this._getGifs();
@@ -62,11 +62,11 @@ export class ScreenSearchGiphy extends Reflux.Component {
 
   // Método responsavel por selectionar a url e copiar o link do gif
   _copyUrl() {
-    document.getElementById("input-shared").select()
-    document.execCommand('copy');
+    document.getElementById("input-shared").select();
+    document.execCommand("copy");
   }
 
-  // Método responavel por chamar a action de remoção do 
+  // Método responavel por chamar a action de remoção do
   //  gif dos favoritos
   _removeGif(gif) {
     ScreenSearchGiphyActions.RemoveGif(gif);
@@ -76,7 +76,9 @@ export class ScreenSearchGiphy extends Reflux.Component {
     const { data } = this.state;
     const { controls, giphys } = this.state;
 
-    const url = giphys[controls.numberShuffle] ? giphys[controls.numberShuffle].url : ''
+    const url = giphys[controls.numberShuffle]
+      ? giphys[controls.numberShuffle].url
+      : "";
 
     return (
       <div className="screen-search-giphy">
@@ -98,9 +100,7 @@ export class ScreenSearchGiphy extends Reflux.Component {
           />
         </div>
         <div className="row">
-          <Gallery
-            images={data.favorites}
-            onRemove={this._removeGif} />
+          <Gallery images={data.favorites} onRemove={this._removeGif} />
         </div>
       </div>
     );
