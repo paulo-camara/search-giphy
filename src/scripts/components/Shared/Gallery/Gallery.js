@@ -12,7 +12,7 @@ const _renderMiniature = (images, onRemove) => {
       </span>
     );
   });
-}
+};
 
 export const Gallery = ({ images, onRemove }) => {
   return (
@@ -21,7 +21,7 @@ export const Gallery = ({ images, onRemove }) => {
       <div className="container">{_renderMiniature(images, onRemove)}</div>
     </div>
   );
-}
+};
 
 Gallery.propTypes = {
   images: PropTypes.array.isRequired,

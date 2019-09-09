@@ -1,3 +1,3 @@
 export const KEYS = {
-    API_KEY: "tuonx2JS5dvMqRHiAWgtGxfDHOkhuvaO"
-}
+  API_KEY: "tuonx2JS5dvMqRHiAWgtGxfDHOkhuvaO"
+};

@@ -1,17 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-// Método recebe a imagem a ser renderizada e valida se mostrara 
+// Método recebe a imagem a ser renderizada e valida se mostrara
 //  a mensagem de loading ou a imagem carregada
 const _renderImage = (image, isLoading) => {
   if (isLoading === true) {
-    return <h1 className="loading-message"> Carregando... </h1>
+    return <h1 className="loading-message"> Carregando... </h1>;
   } else if (isLoading === false && image) {
-    return <img src={image} alt="gif" />
+    return <img src={image} alt="gif" />;
   }
-}
+};
 
-export const BoxPicture = ({ onCopy, onShuffle, onFavorite, image, index, isLoading }) => {
+export const BoxPicture = ({
+  onCopy,
+  onShuffle,
+  onFavorite,
+  image,
+  index,
+  isLoading
+}) => {
   return (
     <div className="box-picture">
       <input
@@ -36,7 +43,7 @@ export const BoxPicture = ({ onCopy, onShuffle, onFavorite, image, index, isLoad
       </div>
     </div>
   );
-}
+};
 
 Image.propTypes = {
   image: PropTypes.string.isRequired,

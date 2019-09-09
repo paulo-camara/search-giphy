@@ -6,17 +6,20 @@ Projeto de buscas de gifs desejados. Insira seu tipo de gif desejado na caixa de
 
 ## Hospedado em S3 aws
 
+Endpoint : http://search-giphy.s3-website-us-east-1.amazonaws.com
+
 ## Criado com
 
-* [React](https://github.com/facebook/react) - biblioteca JavaScript de manipulação de dom
-* [Reflux](https://github.com/reflux/refluxjs) - biblioteca JavaScript de manipulação de objetos
-* [Axios](https://github.com/axios/axios) - biblioteca JavaScript de requisições AJAX 
+* [React](https://github.com/facebook/react) - biblioteca JavaScript de manipulação de dom.
+* [Reflux](https://github.com/reflux/refluxjs) - biblioteca JavaScript de manipulação de objetos.
+* [Axios](https://github.com/axios/axios) - biblioteca JavaScript de requisições AJAX.
 * [Saas](https://github.com/sass/sass) - biblioteca de auxílio em estilos.
+* [Toastr](https://github.com/CodeSeven/toastr) - biblioteca para exibição de mensagens.
 
 ## Dependencias
 
-Para instalar as dependencias basta rodar o comando "yarn"
+Para instalar as dependencias basta rodar o comando "<b>yarn</b>"
 
 ## Server
 
-Para rodar o server basta rodar o comando "yarn start"
+Para rodar o server basta rodar o comando "<b>yarn start</b>"
