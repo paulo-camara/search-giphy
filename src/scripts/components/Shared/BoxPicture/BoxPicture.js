@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-
+// Método recebe a imagem a ser renderizada e valida se mostrara 
+//  a mensagem de loading ou a imagem carregada
 const _renderImage = (image, isLoading) => {
   if (isLoading === true) {
     return <h1 className="loading-message"> Carregando... </h1>
